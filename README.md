@@ -7,3 +7,11 @@ Dashboard ini sama dengan yang ada di repository
 hanya sumber data yang digunakan berbeda yaitu dari
 
 [https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/](https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/)
+
+##
+**Demo**
+
+[https://unsorry.net/git/dashboard-covid19-arcgis-hub/](https://unsorry.net/git/dashboard-covid19-arcgis-hub/)
+
+##
+> unsorry@2020
