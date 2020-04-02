@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
   <link rel="stylesheet" href="assets/lib/Leaflet.ExtraMarkers/css/leaflet.extra-markers.min.css">
+  <link rel="stylesheet" href="assets/lib/Leaflet.Basemap/L.Control.Basemaps.css">
   <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
@@ -22,6 +23,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <script src="assets/lib/Leaflet.ExtraMarkers/js/leaflet.extra-markers.min.js"></script>
+  <script src="assets/lib/Leaflet.Basemap/L.Control.Basemaps-min.js"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#"><i class="fas fa-map-marker-alt"></i> Kasus Covid-19</a>
@@ -137,11 +139,26 @@
     var _attribution = '<a href="https://unsorry.net" target="_blank">unsorry@2020</a>';
     
     /* Tile Basemap */
-    var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: _attribution
-    });
-    basemap.addTo(map);
+    var basemaps = [
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'ESRI | ' + _attribution
+      }),
+      L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        attribution: 'Google | ' + _attribution
+      }),
+      L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        attribution: 'Google | ' + _attribution
+      }),
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'OSM | ' + _attribution
+      }),
+    ];
 
+    /* GeoJSON Layer */
     var kasusrendah = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
         if (feature.properties) {
@@ -315,16 +332,15 @@
     });
     $.getJSON("https://opendata.arcgis.com/datasets/0c0f4558f1e548b68a1c82112744bad3_0.geojson", function (data) {
       kasusrendah.addData(data);
-      map.addLayer(kasusrendah);
       kasusagakrendah.addData(data);
-      map.addLayer(kasusagakrendah);
       kasussedang.addData(data);
-      map.addLayer(kasussedang);
       kasustinggi.addData(data);
-      map.addLayer(kasustinggi);
-      map.fitBounds(kasusrendah.getBounds());
-    });    
+      var groupLayer = L.featureGroup([kasusrendah, kasusagakrendah, kasussedang, kasustinggi]);
+      groupLayer.addTo(map);
+      map.fitBounds(groupLayer.getBounds());
+    });
 
+    /* Legenda */
     var legend = new L.Control({position: 'bottomleft'});
     legend.onAdd = function (map) {
       this._div = L.DomUtil.create('div', 'info');
@@ -335,6 +351,16 @@
       this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(103, 171, 57);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="11" y="13.5" font-family="Verdana" font-size="14" fill="white">3</text></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(24, 85, 104);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="7" y="13.5" font-family="Verdana" font-size="14" fill="white">11</text></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(238, 138, 25);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="7" y="13.5" font-family="Verdana" font-size="14" fill="white">30</text></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(156, 39, 43);stroke-width:0.1;stroke:rgb(0,0,0)" /><text x="7" y="13.5" font-family="Verdana" font-size="14" fill="white">69</text></svg> Kasus >50<hr><small>Sumber data:<br><a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/" target="_blank">https://bnpb-inacovid19.hub.arcgis.com</a></small>'
     };
     legend.addTo(map);
+
+    /* Control Basemaps */
+    map.addControl(
+      L.control.basemaps({
+        basemaps: basemaps,
+        tileX: 0,
+        tileY: 0,
+        tileZ: 1
+      })
+    );
   </script>
 </body>
 </html>

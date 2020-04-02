@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
+  <link rel="stylesheet" href="assets/lib/Leaflet.Basemap/L.Control.Basemaps.css">
   <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
@@ -20,6 +21,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script src="assets/lib/Leaflet.Basemap/L.Control.Basemaps-min.js"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#"><i class="fas fa-map-marker-alt"></i> Kasus Covid-19</a>
@@ -134,10 +136,24 @@
     var _attribution = '<a href="https://unsorry.net" target="_blank">unsorry@2020</a>';
     
     /* Tile Basemap */
-    var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: _attribution
-    });
-    basemap.addTo(map);
+    var basemaps = [
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'ESRI | ' + _attribution
+      }),
+      L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        attribution: 'Google | ' + _attribution
+      }),
+      L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3'],
+        attribution: 'Google | ' + _attribution
+      }),
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'OSM | ' + _attribution
+      }),
+    ];
 
     var kasuspositif = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
@@ -189,6 +205,16 @@
       this._div.innerHTML = '<h5>Legenda</h5><table class="table table-sm"><tr><td><svg width="24" height="24"><circle cx="12" cy="12" r="10" stroke="gray" stroke-width="0.5" fill="rgb(255,0,0,0.8)" /></svg></td><td>Ukuran radius lingkaran<br>menunjukkan jumlah<br>kasus positif dalam<br>satuan pixel</td></tr></table><hr><small>Sumber data:<br><a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/" target="_blank">https://bnpb-inacovid19.hub.arcgis.com</a></small>'
     };
     legend.addTo(map);
+
+    // Control Basemaps
+    map.addControl(
+      L.control.basemaps({
+        basemaps: basemaps,
+        tileX: 0,
+        tileY: 0,
+        tileZ: 1
+      })
+    );
   </script>
 </body>
 </html>
