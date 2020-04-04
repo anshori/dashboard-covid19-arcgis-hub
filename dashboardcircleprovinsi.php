@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Menampilkan data json menjadi peta dalam kasus data COVID-19 dengan sumber dari https://api.kawalcorona.com">
+  <meta name="description" content="Menampilkan data geojson menjadi peta dalam kasus COVID-19 dengan sumber dari https://bnpb-inacovid19.hub.arcgis.com/">
   <meta name="author" content="unsorry">
 
   <link href="https://unsorry.net/assets-date/images/favicon.png" rel="shortcut icon" type="image/png">
