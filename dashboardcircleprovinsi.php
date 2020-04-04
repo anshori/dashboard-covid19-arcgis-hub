@@ -100,7 +100,7 @@
           </div>
           <div class="col text-left">
             <h5><strong>TOTAL POSITIF</strong></h5>
-            <h5><?php echo $totalpositif; ?> orang</h5>
+            <h5><?php echo number_format($totalpositif); ?> orang</h5>
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@
           </div>
           <div class="col text-left">
             <h5><strong>TOTAL SEMBUH</strong></h5>
-            <h5><?php echo $totalsembuh; ?> orang</h5>
+            <h5><?php echo number_format($totalsembuh); ?> orang</h5>
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@
           </div>
           <div class="col text-left">
             <h5><strong>TOTAL MENINGGAL</strong></h5>
-            <h5><?php echo $totalmeninggal; ?> orang</h5>
+            <h5><?php echo number_format($totalmeninggal); ?> orang</h5>
           </div>
         </div>
       </div>
