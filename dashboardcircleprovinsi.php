@@ -202,7 +202,7 @@
       return this._div;
     };
     legend.update = function () {
-      this._div.innerHTML = '<h5>Legenda</h5><table class="table table-sm"><tr><td><svg width="24" height="24"><circle cx="12" cy="12" r="10" stroke="gray" stroke-width="0.5" fill="rgb(255,0,0,0.8)" /></svg></td><td>Ukuran radius lingkaran<br>menunjukkan jumlah<br>kasus positif dalam<br>satuan pixel</td></tr></table><hr><small>Sumber data:<br><a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/" target="_blank">https://bnpb-inacovid19.hub.arcgis.com</a></small>'
+      this._div.innerHTML = '<h5>Legenda</h5><table class="table table-sm"><tr><td><svg width="24" height="24"><circle cx="12" cy="12" r="10" stroke="gray" stroke-width="0.5" fill="rgb(255,0,0,0.8)" /></svg></td><td>Ukuran radius lingkaran<br>menunjukkan jumlah<br>kasus positif dalam<br>satuan pixel</td></tr></table><hr><small>Sumber data:<br><a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/" target="_blank">bnpb-inacovid19</a></small>'
     };
     legend.addTo(map);
 

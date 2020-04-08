@@ -21,6 +21,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <script src="assets/lib/Leaflet.Basemap/L.Control.Basemaps-min.js"></script>
+  <script src="https://unpkg.com/rbush@2.0.2/rbush.min.js"></script>
+  <script src="https://unpkg.com/labelgun@6.1.0/lib/labelgun.min.js"></script>
+  <script src="assets/lib/Leaflet.Label/labels.js"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#"><i class="fas fa-map-marker-alt"></i> Kasus Covid-19</a>
@@ -224,7 +227,6 @@
               fillColor: "#00FFFF",
               fillOpacity: 0.8,
             });
-            kasuscorona.bindTooltip("Prov. " + feature.properties.PROV + "<br>Jumlah kasus: " + feature.properties.Kasus_Positif, {sticky: true});
           },
           mouseout: function (e) {
             kasuscorona.resetStyle(e.target);
@@ -234,12 +236,25 @@
             kasuscorona.bindPopup(content);
           }
         });
+        layer.bindTooltip(layer.feature.properties.PROV.toString(), {
+          direction: 'center',
+          permanent: true,
+          className: 'styleLabel'
+        });
       }
     });
     $.getJSON("geojson_polygon.php", function (data) {
       kasuscorona.addData(data);
       map.addLayer(kasuscorona);
       map.fitBounds(kasuscorona.getBounds());
+    });
+
+    resetLabels([kasuscorona]);
+    map.on("zoomend", function(){
+      resetLabels([kasuscorona]);
+    });
+    map.on("move", function(){
+      resetLabels([kasuscorona]);
     });
 
     /* Legenda */
@@ -250,7 +265,7 @@
       return this._div;
     };
     legend.update = function () {
-      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(254, 242, 0, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(195, 187, 34, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(244, 132, 32, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(221, 77, 87, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus >50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(37, 150, 210, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Tidak ada kasus<hr><small>Sumber data:<br><a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/" target="_blank">https://bnpb-inacovid19.hub.arcgis.com</a></small>'
+      this._div.innerHTML = '<h5>Legenda</h5><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(254, 242, 0, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 1 - 5<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(195, 187, 34, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 6 - 19<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(244, 132, 32, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus 20 - 50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(221, 77, 87, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Kasus >50<br><svg width="32" height="20"><rect width="32" height="17" style="fill:rgb(37, 150, 210, 0.9);stroke-width:0.1;stroke:rgb(0,0,0)" /></svg> Tidak ada kasus<hr><small>Sumber data:<br><a href="https://bnpb-inacovid19.hub.arcgis.com/datasets/covid19-indonesia-per-provinsi/" target="_blank">bnpb-inacovid19</a></small>'
     };
     legend.addTo(map);
 

@@ -35,3 +35,13 @@ html, body, .container-fluid, #map {
   margin: 0 0 5px;
   color: #000;
 }
+.styleLabel{
+  background: rgba(255, 255, 255, 0);
+  border: 0;
+  border-radius: 0px;
+  box-shadow: 0 0px 0px;
+  font-size: 10pt;
+  font-weight: bold;
+  color: black;
+  /*text-shadow: 2px 2px 5px white;*/
+}
