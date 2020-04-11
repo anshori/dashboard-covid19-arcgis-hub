@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="refresh" content="43200">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Menampilkan data geojson menjadi peta dalam kasus COVID-19 dengan sumber dari https://bnpb-inacovid19.hub.arcgis.com/">
@@ -10,7 +11,7 @@
   <link href="https://unsorry.net/assets-date/images/favicon.png" rel="shortcut icon" type="image/png">
   <title>Circle Provinsi</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
   <link rel="stylesheet" href="assets/lib/Leaflet.Basemap/L.Control.Basemaps.css">
@@ -24,7 +25,7 @@
   <script src="assets/lib/Leaflet.Basemap/L.Control.Basemaps-min.js"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#"><i class="fas fa-map-marker-alt"></i> Kasus Covid-19</a>
+    <a class="navbar-brand" href="#"><i class="fas fa-virus"></i> Kasus Covid-19</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -96,7 +97,7 @@
       <div class="col-sm-4 text-center text-warning bg-dark">
         <div class="row p-3">
           <div class="col-3">
-            <i class="far fa-sad-tear fa-4x"></i>
+            <i class="fas fa-sad-tear fa-4x"></i>
           </div>
           <div class="col text-left">
             <h5><strong>TOTAL POSITIF</strong></h5>
@@ -107,7 +108,7 @@
       <div class="col-sm-4 text-center text-success bg-dark">
         <div class="row p-3">
           <div class="col-3">
-            <i class="far fa-smile fa-4x"></i>
+            <i class="fas fa-smile fa-4x"></i>
           </div>
           <div class="col text-left">
             <h5><strong>TOTAL SEMBUH</strong></h5>
@@ -118,7 +119,7 @@
       <div class="col-sm-4 text-center text-danger bg-dark">
         <div class="row p-3">
           <div class="col-3">
-            <i class="far fa-frown fa-4x"></i>
+            <i class="fas fa-frown fa-4x"></i>
           </div>
           <div class="col text-left">
             <h5><strong>TOTAL MENINGGAL</strong></h5>
