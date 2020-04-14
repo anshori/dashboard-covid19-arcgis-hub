@@ -228,6 +228,7 @@
               fillColor: "#00FFFF",
               fillOpacity: 0.8,
             });
+            kasuscorona.bindTooltip(layer.feature.properties.PROV + "<br>Positif: " + feature.properties.Kasus_Positif, {sticky: true});
           },
           mouseout: function (e) {
             kasuscorona.resetStyle(e.target);
